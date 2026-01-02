@@ -32,7 +32,7 @@ export default async function Hero() {
             </div>
 
             <div>
-                <h2 className="text-sm uppercase tracking-wider text-accent-secondary mb-4 border-b border-accent-secondary/20 pb-2 inline-block">
+                <h2 className="text-base font-medium uppercase tracking-[0.2em] text-text-primary/90 mb-8 border-b border-accent-secondary/40 pb-2 w-max pr-12">
                     SYSTEM.ACTIVITY
                 </h2>
 

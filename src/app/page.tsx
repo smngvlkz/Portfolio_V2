@@ -1,5 +1,6 @@
 import Hero from "./components/Hero";
 import ProductLog from "./components/ProductLog";
+import Contributions from "./components/Contributions";
 
 export default function Home() {
   return (
@@ -10,10 +11,14 @@ export default function Home() {
 
       <ProductLog />
 
-      <div className="h-px bg-accent-secondary/30 w-full max-w-[600px] my-12" />
+      <div className="h-px bg-accent-secondary/50 w-full max-w-[600px] my-16" />
 
-      <section className="max-w-[700px] mb-12">
-        <h2 className="text-sm uppercase tracking-wider text-accent-secondary mb-8">README.md</h2>
+      <Contributions />
+
+      <div className="h-px bg-accent-secondary/50 w-full max-w-[600px] my-16" />
+
+      <section className="max-w-[700px] mb-24 mt-8">
+        <h2 className="text-base font-medium uppercase tracking-[0.2em] text-text-primary/90 mb-8 border-b border-accent-secondary/40 pb-2 w-max pr-12">README.md</h2>
         <div className="space-y-1 text-text-primary">
           <p>I build focused, durable products designed to last.</p>
           <p>No hype. No dashboards for dashboards.</p>

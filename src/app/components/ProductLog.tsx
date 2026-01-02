@@ -47,7 +47,7 @@ const PRODUCTS: Product[] = [
 export default function ProductLog() {
     return (
         <section className="py-8 max-w-[700px]">
-            <h2 className="text-sm uppercase tracking-wider text-accent-secondary mb-8">LOGS/PRODUCTS</h2>
+            <h2 className="text-base font-medium uppercase tracking-[0.2em] text-text-primary/90 mb-8 max-w-[700px]">LOGS/PRODUCTS</h2>
 
             <div className="flex flex-col gap-12">
                 {PRODUCTS.map((product) => (
