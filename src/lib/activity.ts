@@ -187,6 +187,10 @@ export async function getActivityStats(): Promise<ActivityStats> {
     const githubToken = process.env.GITHUB_TOKEN || process.env.GH_PAT;
     const gitlabToken = process.env.GITLAB_TOKEN || process.env.GL_PAT;
 
+    // Debug: Log token availability (not the actual tokens)
+    console.log('[Activity] GitHub token:', githubToken ? 'present' : 'missing');
+    console.log('[Activity] GitLab token:', gitlabToken ? 'present' : 'missing');
+
     let stats = { ...FALLBACK_STATS };
     let ghSessions = 0;
     let ghStreak = 0;
@@ -199,6 +203,7 @@ export async function getActivityStats(): Promise<ActivityStats> {
         if (ghStats) {
             ghStreak = ghStats.streak;
             ghSessions = ghStats.commits;
+            console.log('[Activity] GitHub stats:', { ghSessions, ghStreak });
         }
     }
 
@@ -209,14 +214,29 @@ export async function getActivityStats(): Promise<ActivityStats> {
             glStreak = glStats.streak || 0;
             glSessions = glStats.commits;
             stats.gitlab.commits = glSessions;
+            console.log('[Activity] GitLab stats:', { glSessions, glStreak });
         }
     }
 
     // Aggregate Sessions (GitHub contributions + GitLab unique active days)
-    stats.totalSessions = ghSessions + glSessions;
+    const totalFromAPIs = ghSessions + glSessions;
+
+    // DEFENSIVE FALLBACK: If API calls returned 0, use fallback data
+    if (totalFromAPIs > 0) {
+        stats.totalSessions = totalFromAPIs;
+    } else {
+        console.log('[Activity] Using fallback sessions:', FALLBACK_STATS.totalSessions);
+    }
 
     // Use the MAX streak between GitHub and GitLab (real data from both)
-    stats.github.streak = Math.max(ghStreak, glStreak);
+    const maxStreak = Math.max(ghStreak, glStreak);
+
+    // DEFENSIVE FALLBACK: If streak is 0, use fallback
+    if (maxStreak > 0) {
+        stats.github.streak = maxStreak;
+    } else {
+        console.log('[Activity] Using fallback streak:', FALLBACK_STATS.github.streak);
+    }
 
     return stats;
 }
