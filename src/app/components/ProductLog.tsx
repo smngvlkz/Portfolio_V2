@@ -23,7 +23,7 @@ const PRODUCTS: Product[] = [
         url: "https://www.quicksalaries.com/"
     },
     {
-        name: "PAYCHASER",
+        name: "PAYCHASERS",
         status: "[LIVE]",
         type: "SaaS",
         pricing: "$9/month · $79/year",
