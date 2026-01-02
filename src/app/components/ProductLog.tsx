@@ -32,14 +32,14 @@ const PRODUCTS: Product[] = [
         stack: ["HTML, CSS, JavaScript", "No framework"],
         infra: ["Hosted on Microsoft Azure", "Static delivery"],
         payments: ["LemonSqueezy"],
-        notes: ["Intentionally minimal", "Zero backend complexity"]
+        notes: ["Intentionally minimal", "Backend-free by design"]
     },
     {
         name: "PAYCHASERS",
         status: "[LIVE]",
         type: "SaaS",
         pricing: "Free / Pro $9/month",
-        goal: "Sustainable recurring revenue (~R45k/month)",
+        goal: "Sustainable recurring SaaS revenue (~R45k/month)",
         description: "Automated invoice follow-ups\nDesigned for low maintenance",
         link: "paychasers.com",
         url: "https://www.paychasers.com/",
@@ -53,14 +53,14 @@ const PRODUCTS: Product[] = [
         type: "Crypto / Platform",
         pricing: "5% flat fee",
         goal: "Financial inclusion",
-        description: "Instant airtime-to-usdc\nNon-custodial stellar rails",
+        description: "Instant airtime-to-USDC\nNon-custodial Stellar rails",
         link: "swyftswap.com",
         url: "https://www.swyftswap.com",
         stack: ["Vue", "JavaScript, TypeScript", "Rust (Soroban smart contracts)", "Stellar blockchain"],
         infra: ["Vercel", "Stellar Network"],
         architecture: ["Non-custodial", "Smart contract–driven settlement", "SMS-triggered transactions (infra-ready)"],
         statusNotes: ["Archived (research ongoing)", "End-to-end system fully built and deployed"],
-        notes: ["Self-custodial USDC delivery", "Regulatory-light design via non-custodial model"]
+        notes: ["Self-custodial USDC delivery", "Reduced regulatory surface via non-custodial model"]
     }
 ];
 
