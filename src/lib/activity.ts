@@ -58,7 +58,7 @@ async function fetchGitHubStats(token: string) {
 }
 
 export async function getActivityStats(): Promise<ActivityStats> {
-    const githubToken = process.env.GITHUB_TOKEN;
+    const githubToken = process.env.GITHUB_TOKEN || process.env.GH_PAT;
     // const gitlabToken = process.env.GITLAB_TOKEN;
 
     let stats = { ...FALLBACK_STATS };
