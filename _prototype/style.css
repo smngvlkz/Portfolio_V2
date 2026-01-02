@@ -1,0 +1,294 @@
+/* Reset & Base */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --bg-color: #0E0E11;
+    --text-primary: #E6E6EB;
+    --text-muted: #8A8A93;
+    --accent: #F59E0B;
+    --accent-dim: rgba(245, 158, 11, 0.4);
+    --secondary-accent: #374151;
+    --border-color: #1F2937;
+    
+    --font-mono: 'JetBrains Mono', 'SF Mono', Menlo, monospace;
+    
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 1rem;
+    --spacing-md: 2rem;
+    --spacing-lg: 4rem;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    font-family: var(--font-mono);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+    padding: var(--spacing-md);
+}
+
+.container {
+    max-width: 960px;
+    margin: 0 auto; /* Left-aligned per request, but usually 'centered' in a max-width container is better. 
+                       Request said "Left-aligned". Let's stick to true left aligned for content inside, 
+                       but maybe keep the container centered or slightly off-center? 
+                       Prompt said: "Left-aligned content". I'll keep the container centered for readability on large screens, 
+                       but content inside is left aligned. */
+    margin: 0; /* Strict left align per prompt strictness "Left-aligned" */
+}
+
+/* Typography & Utilites */
+h1, h2, h3 {
+    font-weight: 700;
+    margin-bottom: var(--spacing-sm);
+    color: var(--text-primary);
+}
+
+.subtitle {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
+
+.subtitle_muted {
+    font-size: 1rem;
+    color: var(--text-muted);
+    margin-bottom: var(--spacing-md);
+}
+
+.label {
+    color: var(--text-muted);
+    margin-right: var(--spacing-xs);
+}
+
+.value {
+    color: var(--text-primary);
+}
+
+.value.accent {
+    color: var(--accent);
+}
+
+.highlight {
+    color: var(--accent);
+}
+
+.link {
+    color: var(--text-muted);
+    text-decoration: none;
+    border-bottom: 1px solid var(--secondary-accent);
+    transition: color 0.2s, border-color 0.2s;
+}
+
+.link:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+}
+
+.divider {
+    height: 1px;
+    background-color: var(--border-color);
+    margin: var(--spacing-lg) 0;
+    width: 100%;
+    max-width: 600px; /* Constraints width to keep it tight */
+}
+
+/* Sections */
+.section {
+    margin-bottom: var(--spacing-lg);
+    max-width: 700px;
+}
+
+.section-title {
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--secondary-accent);
+    margin-bottom: var(--spacing-md);
+}
+
+/* Hero */
+#hero {
+    padding-top: var(--spacing-md);
+}
+
+.metadata {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+}
+
+/* Products */
+.product-log {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+}
+
+.log-entry {
+    border-left: 2px solid var(--secondary-accent);
+    padding-left: var(--spacing-sm);
+    transition: border-color 0.3s ease;
+}
+
+.log-entry:hover {
+    border-left-color: var(--accent);
+}
+
+.log-header {
+    margin-bottom: var(--spacing-sm);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.product-name {
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+.status-badge {
+    font-size: 0.75rem;
+    background: var(--secondary-accent);
+    color: var(--text-primary);
+    padding: 2px 6px;
+    border-radius: 2px;
+}
+
+.log-details {
+    font-size: 0.9rem;
+    margin-bottom: var(--spacing-sm);
+    display: grid;
+    gap: 0.25rem;
+}
+
+.log-description {
+    color: var(--text-muted);
+    margin-bottom: var(--spacing-sm);
+    white-space: pre-line;
+}
+
+/* Metrics - Heatmap */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.stat-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.stat-label {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+}
+
+.heatmap-container {
+    margin-top: var(--spacing-md);
+}
+
+.heatmap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    max-width: 600px;
+}
+
+.cell {
+    width: 12px;
+    height: 12px;
+    background-color: var(--secondary-accent);
+    opacity: 0.2;
+    transition: opacity 0.3s;
+}
+
+.cell:hover {
+    transform: scale(1.2);
+    /* cursor: crosshair; */
+}
+
+/* Heatmap intensity levels */
+.level-0 { opacity: 0.1; }
+.level-1 { background-color: var(--accent); opacity: 0.2; }
+.level-2 { background-color: var(--accent); opacity: 0.4; }
+.level-3 { background-color: var(--accent); opacity: 0.7; }
+.level-4 { background-color: var(--accent); opacity: 1.0; }
+
+.heatmap-legend {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 8px;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+.legend-gradient {
+    width: 60px;
+    height: 8px;
+    background: linear-gradient(to right, 
+        rgba(55, 65, 81, 0.2), 
+        rgba(245, 158, 11, 0.2), 
+        rgba(245, 158, 11, 1.0)
+    );
+}
+
+/* About */
+.about-content p {
+    margin-bottom: var(--spacing-xs);
+    color: var(--text-primary);
+}
+
+/* Footer */
+.footer {
+    padding-top: var(--spacing-lg);
+    padding-bottom: var(--spacing-lg);
+    color: var(--text-muted);
+}
+
+.blinking-cursor {
+    animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 640px) {
+    :root {
+        --spacing-md: 1.5rem;
+        --spacing-lg: 3rem;
+    }
+    
+    body {
+        padding: var(--spacing-sm);
+    }
+    
+    .heatmap {
+        gap: 3px;
+    }
+    
+    .cell {
+        width: 10px;
+        height: 10px;
+    }
+}
