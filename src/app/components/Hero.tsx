@@ -81,6 +81,13 @@ export default async function Hero() {
                     </div>
                     <span className="opacity-60">* live stats from github & gitlab</span>
                 </div>
+
+                <a
+                    href="#system-query"
+                    className="inline-block mt-6 text-xs text-text-muted hover:text-accent transition-colors"
+                >
+                    &gt; system.query available below ↓
+                </a>
             </div>
         </section>
     );

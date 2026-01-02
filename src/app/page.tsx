@@ -1,6 +1,7 @@
 import Hero from "./components/Hero";
 import ProductLog from "./components/ProductLog";
 import Contributions from "./components/Contributions";
+import Terminal from "./components/Terminal";
 
 // Force runtime rendering (not SSG) so environment variables are available
 export const dynamic = 'force-dynamic';
@@ -20,7 +21,7 @@ export default function Home() {
 
       <div className="h-px bg-accent-secondary/50 w-full max-w-[600px] my-16" />
 
-      <section className="max-w-[700px] mb-24 mt-8">
+      <section className="max-w-[700px] mb-16 mt-8">
         <h2 className="text-base font-medium uppercase tracking-[0.2em] text-text-primary/90 mb-8 border-b border-accent-secondary/40 pb-2 w-max pr-12">README.md</h2>
         <div className="space-y-1 text-text-primary">
           <p>I build focused, durable products designed to last.</p>
@@ -29,9 +30,9 @@ export default function Home() {
         </div>
       </section>
 
-      <footer className="py-8 text-text-muted">
-        <span className="cursor-blink font-bold">&gt; _</span>
-      </footer>
+      <div className="h-px bg-accent-secondary/50 w-full max-w-[600px] my-12" />
+
+      <Terminal />
     </main>
   );
 }
