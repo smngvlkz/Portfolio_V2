@@ -11,6 +11,9 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   title: "simangaliso_vilakazi",
   description: "Full-stack engineer building calm, durable software.",
+  icons: {
+    icon: "/octopus-icon.png",
+  },
 };
 
 export default function RootLayout({
