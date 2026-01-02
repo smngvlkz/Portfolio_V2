@@ -13,6 +13,7 @@ interface Product {
     stack: string[];
     infra: string[];
     payments?: string[];
+    architecture?: string[];
     notes?: string[];
     focus?: string[];
     statusNotes?: string[];
@@ -38,13 +39,13 @@ const PRODUCTS: Product[] = [
         status: "[LIVE]",
         type: "SaaS",
         pricing: "Free / Pro $9/month",
-        goal: "R45k/month (~$2.5k)",
+        goal: "Sustainable recurring revenue (~R45k/month)",
         description: "Automated invoice follow-ups\nDesigned for low maintenance",
         link: "paychasers.com",
         url: "https://www.paychasers.com/",
         stack: ["Next.js", "TypeScript, JavaScript", "CSS"],
         infra: ["Vercel", "PostgreSQL"],
-        payments: ["LemonSqueezy (planned)"]
+        payments: ["LemonSqueezy (integration in progress)"]
     },
     {
         name: "SWYFTSWAP",
@@ -55,9 +56,11 @@ const PRODUCTS: Product[] = [
         description: "Instant airtime-to-usdc\nNon-custodial stellar rails",
         link: "swyftswap.com",
         url: "https://www.swyftswap.com",
-        stack: ["Vue", "JavaScript, TypeScript", "Rust", "Shell"],
-        infra: ["Vercel"],
-        statusNotes: ["Inactive", "Proof of end-to-end delivery"]
+        stack: ["Vue", "JavaScript, TypeScript", "Rust (Soroban smart contracts)", "Stellar blockchain"],
+        infra: ["Vercel", "Stellar Network"],
+        architecture: ["Non-custodial", "Smart contract–driven settlement", "SMS-triggered transactions (infra-ready)"],
+        statusNotes: ["Archived (research ongoing)", "End-to-end system fully built and deployed"],
+        notes: ["Self-custodial USDC delivery", "Regulatory-light design via non-custodial model"]
     }
 ];
 
@@ -92,9 +95,9 @@ export default function ProductLog() {
                                 <span className="text-text-muted w-24 uppercase tracking-wider">PRICING:</span>
                                 <span className="text-text-primary">{product.pricing}</span>
                             </div>
-                            <div className="flex">
-                                <span className="text-text-muted w-24 uppercase tracking-wider">GOAL:</span>
-                                <span className="text-accent">{product.goal}</span>
+                            <div className="flex items-start">
+                                <span className="text-text-muted min-w-[6rem] uppercase tracking-wider shrink-0 mt-0.5">GOAL:</span>
+                                <span className="text-accent whitespace-pre-line">{product.goal}</span>
                             </div>
                         </div>
 
@@ -125,12 +128,36 @@ export default function ProductLog() {
                                 </ul>
                             </div>
 
+                            {/* ARCHITECTURE */}
+                            {product.architecture && (
+                                <div>
+                                    <span className="text-text-muted uppercase tracking-wider block mb-1">ARCHITECTURE:</span>
+                                    <ul className="pl-4 text-text-primary space-y-0.5">
+                                        {product.architecture.map((item, i) => (
+                                            <li key={i}>- {item}</li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            )}
+
                             {/* PAYMENTS */}
                             {product.payments && (
                                 <div>
                                     <span className="text-text-muted uppercase tracking-wider block mb-1">PAYMENTS:</span>
                                     <ul className="pl-4 text-text-primary space-y-0.5">
                                         {product.payments.map((item, i) => (
+                                            <li key={i}>- {item}</li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            )}
+
+                            {/* STATUS (for archived) */}
+                            {product.statusNotes && (
+                                <div>
+                                    <span className="text-text-muted uppercase tracking-wider block mb-1">STATUS:</span>
+                                    <ul className="pl-4 text-text-primary space-y-0.5">
+                                        {product.statusNotes.map((item, i) => (
                                             <li key={i}>- {item}</li>
                                         ))}
                                     </ul>
@@ -155,18 +182,6 @@ export default function ProductLog() {
                                     <span className="text-text-muted uppercase tracking-wider block mb-1">FOCUS:</span>
                                     <ul className="pl-4 text-text-primary space-y-0.5">
                                         {product.focus.map((item, i) => (
-                                            <li key={i}>- {item}</li>
-                                        ))}
-                                    </ul>
-                                </div>
-                            )}
-
-                            {/* STATUS (for archived) */}
-                            {product.statusNotes && (
-                                <div>
-                                    <span className="text-text-muted uppercase tracking-wider block mb-1">STATUS:</span>
-                                    <ul className="pl-4 text-text-primary space-y-0.5">
-                                        {product.statusNotes.map((item, i) => (
                                             <li key={i}>- {item}</li>
                                         ))}
                                     </ul>
