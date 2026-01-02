@@ -33,8 +33,8 @@ const PRODUCTS: Product[] = [
         url: "https://www.paychasers.com/"
     },
     {
-        name: "SWYFTERSWAP", // User called it SwyftSwap, let's keep name consistent but maybe uppercase in UI? keeping source data correct first. User asked for uppercase "Log identifiers".
-        status: "[LIVE]",
+        name: "SWYFTSWAP",
+        status: "[ARCHIVED]",
         type: "Crypto / Platform",
         pricing: "5% flat fee",
         goal: "Financial inclusion",
