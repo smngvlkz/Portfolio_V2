@@ -2,6 +2,9 @@ import Hero from "./components/Hero";
 import ProductLog from "./components/ProductLog";
 import Contributions from "./components/Contributions";
 
+// Force runtime rendering (not SSG) so environment variables are available
+export const dynamic = 'force-dynamic';
+
 export default function Home() {
   return (
     <main className="min-h-screen p-8 md:p-12 max-w-4xl mx-auto flex flex-col">
