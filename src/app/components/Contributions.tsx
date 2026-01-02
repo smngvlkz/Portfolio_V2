@@ -47,7 +47,7 @@ export default function Contributions() {
                         </div>
                         <div className="flex items-baseline">
                             <span className="text-text-muted w-28 uppercase tracking-widest text-xs opacity-70">STACK:</span>
-                            <span>Next.js, Markdown, Tailwind</span>
+                            <span>Next.js, JavaScript, Markdown, Tailwind</span>
                         </div>
                         <div className="flex items-baseline">
                             <span className="text-text-muted w-28 uppercase tracking-widest text-xs opacity-70">FOCUS:</span>
