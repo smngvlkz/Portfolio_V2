@@ -2,8 +2,6 @@ import { GoogleGenerativeAI } from '@google/generative-ai';
 import { PRODUCTS, getProductBySlug, getAllProductSlugs } from '@/lib/products';
 import { NextRequest, NextResponse } from 'next/server';
 
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || '');
-
 const SYSTEM_PROMPT = `You are a terminal-style query system for a developer portfolio. You respond to queries about products/projects in a concise, technical manner.
 
 Available products: ${getAllProductSlugs().join(', ')}
@@ -166,18 +164,20 @@ Example: show swyftswap architecture`
         }
 
         // For complex queries, use Gemini
-        if (!process.env.GEMINI_API_KEY) {
+        const apiKey = process.env.GEMINI_API_KEY;
+        console.log('[Gemini] API key present:', !!apiKey, 'Length:', apiKey?.length);
+
+        if (!apiKey || apiKey === 'your-key-here') {
             return NextResponse.json({
                 response: 'AI queries unavailable. Try: show [product] stack'
             });
         }
 
-        const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+        const genAI = new GoogleGenerativeAI(apiKey);
+        const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' });
 
-        const result = await model.generateContent([
-            SYSTEM_PROMPT,
-            `User query: ${query}`
-        ]);
+        const prompt = `${SYSTEM_PROMPT}\n\nUser query: ${query}`;
+        const result = await model.generateContent(prompt);
 
         const response = result.response.text();
 
@@ -185,8 +185,9 @@ Example: show swyftswap architecture`
 
     } catch (error) {
         console.error('Query error:', error);
+        const errorMessage = error instanceof Error ? error.message : 'Unknown error';
         return NextResponse.json(
-            { error: 'System error. Try a simpler query.' },
+            { error: `System error: ${errorMessage}` },
             { status: 500 }
         );
     }
