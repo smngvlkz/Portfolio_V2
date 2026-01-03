@@ -172,7 +172,7 @@ export default function Terminal() {
             </div>
 
             <p className="text-text-muted text-xs mt-3 opacity-70">
-                help | list products | list fields | show [product] [field] | explain [product] | clear
+                help | list all | show activity | show [id] [field] | explain [id] | clear
             </p>
         </section>
     );

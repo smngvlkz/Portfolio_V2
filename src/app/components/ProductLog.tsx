@@ -39,7 +39,7 @@ const PRODUCTS: Product[] = [
         status: "[LIVE]",
         type: "SaaS",
         pricing: "Free / Pro $9/month",
-        goal: "Sustainable recurring SaaS revenue (~R45k/month)",
+        goal: "Sustainable recurring SaaS revenue",
         description: "Automated invoice follow-ups\nDesigned for low maintenance",
         link: "paychasers.com",
         url: "https://www.paychasers.com/",

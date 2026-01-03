@@ -9,8 +9,8 @@ export default async function Hero() {
             <h1 className="text-xl font-bold mb-4 glitch">
                 <span className="text-text-primary uppercase tracking-widest">&gt; SIMANGALISO_VILAKAZI</span>
             </h1>
-            <p className="text-xl font-semibold mb-1 text-text-primary">Full-stack engineer</p>
-            <p className="text-base text-text-muted mb-8">Building calm, durable software</p>
+            <p className="text-xl font-semibold mb-1 text-text-primary">Full-stack software engineer</p>
+            <p className="text-base text-text-muted mb-8">Building calm, reliable software</p>
 
             <div className="flex flex-col gap-2 text-sm mb-12">
                 <div className="flex items-center">

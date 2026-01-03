@@ -24,9 +24,8 @@ export default function Home() {
       <section className="max-w-[700px] mb-16 mt-8">
         <h2 className="text-base font-medium uppercase tracking-[0.2em] text-text-primary/90 mb-8 border-b border-accent-secondary/40 pb-2 w-max pr-12">README.md</h2>
         <div className="space-y-1 text-text-primary">
-          <p>I build focused, durable products designed to last.</p>
-          <p>No hype. No dashboards for dashboards.</p>
-          <p>Just software that does its job.</p>
+          <p>I build software designed to last.</p>
+          <p>No hype. Just products that solve real problems.</p>
         </div>
       </section>
 
