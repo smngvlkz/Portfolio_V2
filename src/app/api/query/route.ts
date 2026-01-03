@@ -1,41 +1,8 @@
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { PRODUCTS, getProductBySlug, getAllProductSlugs } from '@/lib/products';
+import { CONTRIBUTIONS, getContributionById, getAllContributionIds } from '@/lib/contributions';
+import { getActivityStats } from '@/lib/activity';
 import { NextRequest, NextResponse } from 'next/server';
-
-const SYSTEM_PROMPT = `You are a terminal-style query system for a developer portfolio. You respond to queries about products/projects in a concise, technical manner.
-
-Available products: ${getAllProductSlugs().join(', ')}
-
-Product data:
-${JSON.stringify(PRODUCTS, null, 2)}
-
-RULES:
-1. Only answer questions about the products listed above
-2. Keep responses short and terminal-like (no markdown, no verbose explanations)
-3. Format lists with "- " prefix
-4. If asked about something not in the data, say "No data available for that query"
-5. For "help" command, list available commands
-6. For "list products" command, list all product names and their status
-7. Respond in plain text, not markdown
-
-Example responses:
-Query: "show paychasers stack"
-Response:
-PAYCHASERS STACK:
-- Next.js
-- TypeScript
-- JavaScript
-- CSS
-
-Query: "help"
-Response:
-AVAILABLE COMMANDS:
-- show [product] stack
-- show [product] infra
-- show [product] architecture
-- show [product] notes
-- list products
-- explain [product] [topic]`;
 
 export async function POST(request: NextRequest) {
     try {
@@ -45,18 +12,73 @@ export async function POST(request: NextRequest) {
             return NextResponse.json({ error: 'Invalid query' }, { status: 400 });
         }
 
+        // Fetch stats early so they are available for both local handling and Gemini
+        const stats = await getActivityStats();
+
+        const SYSTEM_PROMPT = `You are a terminal-style query system for a developer portfolio. You respond to queries about products/projects, open-source contributions, and system activity in a concise, technical manner.
+
+Available products: ${getAllProductSlugs().join(', ')}
+Available contributions: ${getAllContributionIds().join(', ')}
+
+Current System Activity:
+- GitHub: ${stats.github.commits.toLocaleString()} commits (${stats.github.streak || 0} day streak)
+- GitLab: ${stats.gitlab.commits.toLocaleString()} commits (${stats.gitlab.activeMonths || 0} active months)
+- Total Sessions: ${stats.totalSessions.toLocaleString()}
+- Products Shipped: ${stats.shipped}
+
+Product data:
+${JSON.stringify(PRODUCTS, null, 2)}
+
+Contribution data:
+${JSON.stringify(CONTRIBUTIONS, null, 2)}
+
+RULES:
+1. Only answer questions about the products, contributions, and system activity listed above
+2. Keep responses short and terminal-like (no markdown, no verbose explanations)
+3. Format lists with "- " prefix
+4. If asked about something not in the data, say "No data available for that query"
+5. For "help" command, list available commands
+6. For "list products" command, list all product names and their status
+7. For "list all" command, list products and contributions
+8. Respond in plain text, not markdown
+
+Example responses:
+Query: "show paychasers stack"
+Response:
+PAYCHASERS STACK:
+- Next.js
+- … (etc)
+
+Query: "show activity"
+Response:
+SYSTEM ACTIVITY:
+- GitHub: [actual commits] commits ([streak] day streak)
+- GitLab: [actual commits] commits ([months] active months)
+- Total Sessions: [total]
+- Products Shipped: [count]
+
+Query: "help"
+Response:
+AVAILABLE COMMANDS:
+- show [id] stack
+- show [id] focus
+- show activity
+- list all
+- explain [id]`;
+
         // Handle simple commands locally for speed
         const lowerQuery = query.toLowerCase().trim();
 
         if (lowerQuery === 'help') {
             return NextResponse.json({
                 response: `AVAILABLE COMMANDS:
-- list products         (show all products)
+- list all              (show all products and contributions)
 - list fields           (show queryable fields)
-- show [product] [field] (show specific field)
-- explain [product]      (show all product data)
+- show activity         (show system activity stats)
+- show [id] [field]     (show specific field for product or contribution)
+- explain [id]          (show full data for product or contribution)
 
-Products: ${getAllProductSlugs().join(', ')}`
+IDs: ${[...getAllProductSlugs(), ...getAllContributionIds()].join(', ')}`
             });
         }
 
@@ -67,127 +89,178 @@ Products: ${getAllProductSlugs().join(', ')}`
             });
         }
 
+        if (lowerQuery === 'list all') {
+            const productList = PRODUCTS.map(p => `- ${p.name} [${p.status}]`).join('\n');
+            const contribList = CONTRIBUTIONS.map(c => `- ${c.name} (${c.type})`).join('\n');
+            return NextResponse.json({
+                response: `PRODUCTS:\n${productList}\n\nCONTRIBUTIONS:\n${contribList}`
+            });
+        }
+
+        if (lowerQuery === 'show activity' || lowerQuery === 'activity') {
+            return NextResponse.json({
+                response: `SYSTEM ACTIVITY:
+- GitHub: ${stats.github.commits.toLocaleString()} commits (${stats.github.streak || 0} day streak)
+- GitLab: ${stats.gitlab.commits.toLocaleString()} commits (${stats.gitlab.activeMonths || 0} active months)
+- Total Sessions: ${stats.totalSessions.toLocaleString()}
+- Products Shipped: ${stats.shipped}`
+            });
+        }
+
         if (lowerQuery === 'list fields' || lowerQuery === 'fields') {
             return NextResponse.json({
                 response: `QUERYABLE FIELDS:
 - stack (tech stack used)
 - infra (infrastructure/hosting)
 - architecture (system design)
-- payments (payment providers)
+- focus (contribution focus)
+- role (project role)
 - notes (additional details)
-- goal (product objective)
-- pricing (pricing model)
 - status (current state)
 
-Usage: show [product] [field]
-Example: show swyftswap architecture`
+Usage: show [id] [field]
+Example: show radcad focus`
             });
         }
 
-        // Handle "explain [product]" - show all data for a product
-        const explainMatch = lowerQuery.match(/^explain\s+(\w+)$/);
+        // Handle "explain [id]" - show all data for a product or contribution
+        const explainMatch = lowerQuery.match(/^explain\s+([\w-]+)$/);
         if (explainMatch) {
-            const [, productSlug] = explainMatch;
-            const product = getProductBySlug(productSlug);
+            const [, id] = explainMatch;
+            const product = getProductBySlug(id);
+            const contrib = getContributionById(id);
 
-            if (!product) {
-                return NextResponse.json({
-                    response: `Product "${productSlug}" not found. Available: ${getAllProductSlugs().join(', ')}`
-                });
-            }
+            if (product) {
+                let response = `${product.name} [${product.status}]\n`;
+                response += `${product.description}\n\n`;
+                response += `TYPE: ${product.type}\n`;
+                response += `PRICING: ${product.pricing}\n`;
+                response += `GOAL: ${product.goal}\n\n`;
 
-            let response = `${product.name} [${product.status}]\n`;
-            response += `${product.description}\n\n`;
-            response += `TYPE: ${product.type}\n`;
-            response += `PRICING: ${product.pricing}\n`;
-            response += `GOAL: ${product.goal}\n\n`;
-
-            if (product.stack?.length) {
-                response += `STACK:\n${product.stack.map(s => `- ${s}`).join('\n')}\n\n`;
-            }
-            if (product.infra?.length) {
-                response += `INFRA:\n${product.infra.map(s => `- ${s}`).join('\n')}\n\n`;
-            }
-            if (product.architecture?.length) {
-                response += `ARCHITECTURE:\n${product.architecture.map(s => `- ${s}`).join('\n')}\n\n`;
-            }
-            if (product.payments?.length) {
-                response += `PAYMENTS:\n${product.payments.map(s => `- ${s}`).join('\n')}\n\n`;
-            }
-            if (product.notes?.length) {
-                response += `NOTES:\n${product.notes.map(s => `- ${s}`).join('\n')}\n\n`;
-            }
-            if (product.statusNotes?.length) {
-                response += `STATUS:\n${product.statusNotes.map(s => `- ${s}`).join('\n')}\n`;
+                if (product.stack?.length) {
+                    response += `STACK:\n${product.stack.map(s => `- ${s}`).join('\n')}\n\n`;
+                }
+                if (product.infra?.length) {
+                    response += `INFRA:\n${product.infra.map(s => `- ${s}`).join('\n')}\n\n`;
+                }
+                if (product.architecture?.length) {
+                    response += `ARCHITECTURE:\n${product.architecture.map(s => `- ${s}`).join('\n')}\n\n`;
+                }
+                if (product.notes?.length) {
+                    response += `NOTES:\n${product.notes.map(s => `- ${s}`).join('\n')}\n\n`;
+                }
+                return NextResponse.json({ response: response.trim() });
             }
 
-            return NextResponse.json({ response: response.trim() });
+            if (contrib) {
+                let response = `${contrib.name} (${contrib.type})\n`;
+                response += `${contrib.role}\n`;
+                response += `${contrib.description}\n\n`;
+                if (contrib.stack?.length) {
+                    response += `STACK:\n${contrib.stack.map(s => `- ${s}`).join('\n')}\n\n`;
+                }
+                if (contrib.focus?.length) {
+                    response += `FOCUS:\n${contrib.focus.map(s => `- ${s}`).join('\n')}\n\n`;
+                }
+                return NextResponse.json({ response: response.trim() });
+            }
+
+            return NextResponse.json({
+                response: `ID "${id}" not found. Available: ${[...getAllProductSlugs(), ...getAllContributionIds()].join(', ')}`
+            });
         }
 
         // Parse simple show commands
-        const showMatch = lowerQuery.match(/^show\s+(\w+)\s+(\w+)$/);
+        const showMatch = lowerQuery.match(/^show\s+([\w-]+)\s+(\w+)$/);
         if (showMatch) {
-            const [, productSlug, field] = showMatch;
-            const product = getProductBySlug(productSlug);
+            const [, id, field] = showMatch;
+            const product = getProductBySlug(id);
+            const contrib = getContributionById(id);
 
-            if (!product) {
-                return NextResponse.json({
-                    response: `Product "${productSlug}" not found. Available: ${getAllProductSlugs().join(', ')}`
-                });
+            if (product) {
+                const fieldMap: Record<string, keyof typeof product> = {
+                    'stack': 'stack',
+                    'infra': 'infra',
+                    'architecture': 'architecture',
+                    'notes': 'notes',
+                    'status': 'status',
+                };
+
+                const fieldKey = fieldMap[field];
+                if (fieldKey && product[fieldKey]) {
+                    const value = product[fieldKey];
+                    const formatted = Array.isArray(value)
+                        ? value.map(v => `- ${v}`).join('\n')
+                        : value;
+                    return NextResponse.json({
+                        response: `${product.name} ${field.toUpperCase()}:\n${formatted}`
+                    });
+                }
             }
 
-            const fieldMap: Record<string, keyof typeof product> = {
-                'stack': 'stack',
-                'infra': 'infra',
-                'architecture': 'architecture',
-                'notes': 'notes',
-                'payments': 'payments',
-                'status': 'status',
-                'goal': 'goal',
-                'pricing': 'pricing',
-            };
+            if (contrib) {
+                const fieldMap: Record<string, keyof typeof contrib> = {
+                    'stack': 'stack',
+                    'focus': 'focus',
+                    'role': 'role',
+                    'description': 'description',
+                };
 
-            const fieldKey = fieldMap[field];
-            if (fieldKey && product[fieldKey]) {
-                const value = product[fieldKey];
-                const formatted = Array.isArray(value)
-                    ? value.map(v => `- ${v}`).join('\n')
-                    : value;
+                const fieldKey = fieldMap[field];
+                if (fieldKey && contrib[fieldKey]) {
+                    const value = contrib[fieldKey];
+                    const formatted = Array.isArray(value)
+                        ? value.map(v => `- ${v}`).join('\n')
+                        : value;
+                    return NextResponse.json({
+                        response: `${contrib.name} ${field.toUpperCase()}:\n${formatted}`
+                    });
+                }
+            }
+
+            if (product || contrib) {
                 return NextResponse.json({
-                    response: `${product.name} ${field.toUpperCase()}:\n${formatted}`
+                    response: `No "${field}" data for ${id}. Try: stack, architecture, focus, notes`
                 });
             }
 
             return NextResponse.json({
-                response: `No "${field}" data for ${product.name}. Try: stack, infra, architecture, notes, payments, goal, pricing`
+                response: `ID "${id}" not found. Available: ${[...getAllProductSlugs(), ...getAllContributionIds()].join(', ')}`
             });
         }
 
         // For complex queries, use Gemini
         const apiKey = process.env.GEMINI_API_KEY;
-        console.log('[Gemini] API key present:', !!apiKey, 'Length:', apiKey?.length);
+
+        // Debug Log
+        console.log('[Terminal API] Query:', lowerQuery);
+        console.log('[Terminal API] Key status:', apiKey ? (apiKey === 'your-key-here' ? 'placeholder' : 'provided') : 'missing');
 
         if (!apiKey || apiKey === 'your-key-here') {
             return NextResponse.json({
-                response: 'AI queries unavailable. Try: show [product] stack'
+                response: 'AI queries unavailable. Try: show activity (handled locally)'
             });
         }
 
         const genAI = new GoogleGenerativeAI(apiKey);
         const model = genAI.getGenerativeModel({ model: 'gemini-3-flash-preview' });
 
-        const prompt = `${SYSTEM_PROMPT}\n\nUser query: ${query}`;
-        const result = await model.generateContent(prompt);
-
-        const response = result.response.text();
-
-        return NextResponse.json({ response });
+        try {
+            const prompt = `${SYSTEM_PROMPT}\n\nUser query: ${query}`;
+            const result = await model.generateContent(prompt);
+            const response = result.response.text();
+            return NextResponse.json({ response });
+        } catch (apiError: any) {
+            console.error('[Terminal API] Gemini Error:', apiError);
+            return NextResponse.json({
+                error: `Gemini API Error: ${apiError.message || 'Unknown API error'}`
+            }, { status: 500 });
+        }
 
     } catch (error) {
-        console.error('Query error:', error);
-        const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+        console.error('System error:', error);
         return NextResponse.json(
-            { error: `System error: ${errorMessage}` },
+            { error: `System error: ${error instanceof Error ? error.message : 'Unknown'}` },
             { status: 500 }
         );
     }
