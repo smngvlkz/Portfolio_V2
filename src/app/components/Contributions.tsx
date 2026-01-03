@@ -40,18 +40,23 @@ export default function Contributions() {
                     <p className="text-lg font-medium text-accent">
                         Cape Software Community Blog
                     </p>
-                    <div className="grid gap-2 mt-2">
-                        <div className="flex items-start">
-                            <span className="text-text-muted min-w-[4.5rem] shrink-0 uppercase tracking-widest text-xs opacity-70 pt-0.5">ROLE:</span>
-                            <span>Contributor / Maintainer</span>
+                    <div className="grid gap-4 mt-2">
+                        <div className="space-y-2">
+                            <div className="flex items-start">
+                                <span className="text-text-muted min-w-[4.5rem] shrink-0 uppercase tracking-widest text-xs opacity-70 pt-0.5">ROLE:</span>
+                                <span className="font-medium">Creator & Maintainer (Commissioned Project)</span>
+                            </div>
+                            <p className="text-text-muted text-sm leading-relaxed pl-[4.5rem]">
+                                Built the Cape Software Community website from the ground up as a commissioned bounty project and continue to maintain and evolve it.
+                            </p>
                         </div>
                         <div className="flex items-start">
                             <span className="text-text-muted min-w-[4.5rem] shrink-0 uppercase tracking-widest text-xs opacity-70 pt-0.5">STACK:</span>
-                            <span>Next.js, JavaScript, Markdown, Tailwind</span>
+                            <span>Next.js, JavaScript, Markdown, Tailwind CSS</span>
                         </div>
                         <div className="flex items-start">
                             <span className="text-text-muted min-w-[4.5rem] shrink-0 uppercase tracking-widest text-xs opacity-70 pt-0.5">FOCUS:</span>
-                            <span>Static generation, contributor-friendly architecture</span>
+                            <span>Static generation, contributor-friendly architecture, community contribution flow</span>
                         </div>
                     </div>
                 </div>
