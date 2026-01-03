@@ -41,16 +41,16 @@ export default function Contributions() {
                         Cape Software Community Blog
                     </p>
                     <div className="grid gap-2 mt-2">
-                        <div className="flex items-baseline">
-                            <span className="text-text-muted w-28 uppercase tracking-widest text-xs opacity-70">ROLE:</span>
+                        <div className="flex items-start">
+                            <span className="text-text-muted min-w-[4.5rem] shrink-0 uppercase tracking-widest text-xs opacity-70 pt-0.5">ROLE:</span>
                             <span>Contributor / Maintainer</span>
                         </div>
-                        <div className="flex items-baseline">
-                            <span className="text-text-muted w-28 uppercase tracking-widest text-xs opacity-70">STACK:</span>
+                        <div className="flex items-start">
+                            <span className="text-text-muted min-w-[4.5rem] shrink-0 uppercase tracking-widest text-xs opacity-70 pt-0.5">STACK:</span>
                             <span>Next.js, JavaScript, Markdown, Tailwind</span>
                         </div>
-                        <div className="flex items-baseline">
-                            <span className="text-text-muted w-28 uppercase tracking-widest text-xs opacity-70">FOCUS:</span>
+                        <div className="flex items-start">
+                            <span className="text-text-muted min-w-[4.5rem] shrink-0 uppercase tracking-widest text-xs opacity-70 pt-0.5">FOCUS:</span>
                             <span>Static generation, contributor-friendly architecture</span>
                         </div>
                     </div>
