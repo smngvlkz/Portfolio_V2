@@ -174,7 +174,7 @@ Example: show swyftswap architecture`
         }
 
         const genAI = new GoogleGenerativeAI(apiKey);
-        const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' });
+        const model = genAI.getGenerativeModel({ model: 'gemini-3-flash-preview' });
 
         const prompt = `${SYSTEM_PROMPT}\n\nUser query: ${query}`;
         const result = await model.generateContent(prompt);
