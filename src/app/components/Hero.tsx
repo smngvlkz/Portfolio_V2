@@ -28,6 +28,7 @@ export default async function Hero() {
                 <div className="flex items-center mt-2 gap-4">
                     <a href="https://github.com/smngvlkz" target="_blank" className="text-text-muted hover:text-accent transition-colors">&gt; github</a>
                     <a href="https://linkedin.com/in/smngvlkz" target="_blank" className="text-text-muted hover:text-accent transition-colors">&gt; linkedin</a>
+                    <a href="mailto:smngvlkz1@mail.com" className="text-text-muted hover:text-accent transition-colors">&gt; email</a>
                 </div>
             </div>
 
