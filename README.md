@@ -1,6 +1,6 @@
 # Portfolio
 
-My personal portfolio focused on products I have built and shipped.
+My personal portfolio focused on products I have built, shipped, and researched.
 
 Built with Next.js, TypeScript, JavaScript, and Tailwind CSS.
 Deployed on Google Cloud Run.
