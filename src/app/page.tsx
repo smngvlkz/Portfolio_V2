@@ -25,7 +25,7 @@ export default function Home() {
         <h2 className="text-base font-medium uppercase tracking-[0.2em] text-text-primary/90 mb-8 border-b border-accent-secondary/40 pb-2 w-max pr-12">README.md</h2>
         <div className="space-y-1 text-text-primary">
           <p>I build software designed to last.</p>
-          <p>No hype. Just products that solve real problems.</p>
+          <p>Just products that solve real problems.</p>
         </div>
       </section>
 
