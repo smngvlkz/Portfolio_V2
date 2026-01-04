@@ -85,7 +85,7 @@ export default function ProductLog() {
                             </span>
                         </div>
 
-                        {/* TYPE, PRICING, GOAL - First */}
+                        {/* TYPE, PRICING, GOAL, PHASE */}
                         <div className="grid gap-1 text-sm mb-4">
                             <div className="flex">
                                 <span className="text-text-muted w-24 uppercase tracking-wider">TYPE:</span>
@@ -99,6 +99,12 @@ export default function ProductLog() {
                                 <span className="text-text-muted min-w-[6rem] uppercase tracking-wider shrink-0 mt-0.5">GOAL:</span>
                                 <span className="text-accent whitespace-pre-line">{product.goal}</span>
                             </div>
+                            {product.statusNotes && product.statusNotes.length > 0 && (
+                                <div className="flex">
+                                    <span className="text-text-muted w-24 uppercase tracking-wider">PHASE:</span>
+                                    <span className="text-text-primary">Research (active)</span>
+                                </div>
+                            )}
                         </div>
 
                         {/* Description */}
