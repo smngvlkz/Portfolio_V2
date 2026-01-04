@@ -13,16 +13,16 @@ export default async function Hero() {
             <p className="text-base text-text-muted mb-8">Building calm, reliable software</p>
 
             <div className="flex flex-col gap-2 text-sm mb-12">
-                <div className="flex items-center">
-                    <span className="text-text-muted w-24 uppercase tracking-wider">STATUS:</span>
+                <div className="flex items-start">
+                    <span className="text-text-muted min-w-[6.5rem] shrink-0 uppercase tracking-wider">STATUS:</span>
                     <span className="text-accent">Shipping</span>
                 </div>
-                <div className="flex items-center">
-                    <span className="text-text-muted w-24 uppercase tracking-wider">LOCATION:</span>
+                <div className="flex items-start">
+                    <span className="text-text-muted min-w-[6.5rem] shrink-0 uppercase tracking-wider">LOCATION:</span>
                     <span className="text-text-primary">South Africa</span>
                 </div>
-                <div className="flex items-center">
-                    <span className="text-text-muted w-24 uppercase tracking-wider">FOCUS:</span>
+                <div className="flex items-start">
+                    <span className="text-text-muted min-w-[6.5rem] shrink-0 uppercase tracking-wider">FOCUS:</span>
                     <span className="text-text-primary">Web platforms, automation, payments</span>
                 </div>
                 <div className="flex items-center mt-2 gap-4">
