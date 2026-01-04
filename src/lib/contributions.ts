@@ -16,7 +16,7 @@ export const CONTRIBUTIONS: ContributionItem[] = [
         name: "radCAD",
         type: "Acknowledgement",
         role: "Credited contributor",
-        description: "Open-source simulation framework.",
+        description: "open-source simulation framework",
         stack: ["Python", "CI/CD"],
         focus: ["cadCAD compatibility mode", "CI pipeline improvements"],
         link: "github.com/CADLabs/radCAD",

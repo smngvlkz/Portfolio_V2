@@ -17,7 +17,7 @@ export default function Contributions() {
                         {acknowledgements.map((item) => (
                             <div key={item.id} className="text-text-primary text-sm space-y-3">
                                 <p className="leading-relaxed">
-                                    {item.role} to <span className="text-lg font-medium text-accent">{item.name}</span> ({item.description}).
+                                    {item.role} to the <span className="text-lg font-medium text-accent">{item.name}</span> {item.description}.
                                 </p>
                                 <div className="pl-0 opacity-80">
                                     <p className="text-text-muted mb-2 text-xs uppercase tracking-wide">Contribution:</p>
