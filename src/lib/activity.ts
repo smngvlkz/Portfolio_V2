@@ -26,7 +26,7 @@ const FALLBACK_STATS: ActivityStats = {
         activeMonths: 12,
     },
     totalSessions: 1600,
-    shipped: 3,
+    shipped: 4,
 };
 
 async function fetchGitHubStats(token: string) {
