@@ -23,7 +23,7 @@ export const PRODUCTS: Product[] = [
         slug: "quicksalaries",
         status: "LIVE",
         type: "SaaS",
-        pricing: "Free / Pro $4.99/month",
+        pricing: "Free forever / Pro $14.99 lifetime",
         goal: "Authority",
         description: "Salary data aggregation. Transparent market insights.",
         link: "quicksalaries.com",

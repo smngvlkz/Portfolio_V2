@@ -24,7 +24,7 @@ const PRODUCTS: Product[] = [
         name: "QUICKSALARIES",
         status: "[LIVE]",
         type: "SaaS",
-        pricing: "Free / Pro $4.99/month",
+        pricing: "Free forever / Pro $14.99 lifetime",
         goal: "Authority",
         description: "Salary data aggregation\nTransparent market insights",
         link: "quicksalaries.com",
