@@ -1,68 +1,5 @@
 import Link from 'next/link';
-
-interface Product {
-    name: string;
-    status: string;
-    type: string;
-    pricing: string;
-    goal: string;
-    description: string;
-    link: string;
-    url: string;
-    // New detailed fields
-    stack: string[];
-    infra: string[];
-    payments?: string[];
-    architecture?: string[];
-    notes?: string[];
-    focus?: string[];
-    statusNotes?: string[];
-}
-
-const PRODUCTS: Product[] = [
-    {
-        name: "QUICKSALARIES",
-        status: "[LIVE]",
-        type: "SaaS",
-        pricing: "Free forever / Pro $14.99 lifetime",
-        goal: "Authority",
-        description: "Salary data aggregation\nTransparent market insights",
-        link: "quicksalaries.com",
-        url: "https://www.quicksalaries.com/",
-        stack: ["HTML, CSS, JavaScript", "No framework"],
-        infra: ["Hosted on Microsoft Azure", "Static delivery"],
-        payments: ["LemonSqueezy"],
-        notes: ["Intentionally minimal", "Backend-free by design"]
-    },
-    {
-        name: "PAYCHASERS",
-        status: "[LIVE]",
-        type: "SaaS",
-        pricing: "Free / Pro $9/month",
-        goal: "Sustainable recurring SaaS revenue",
-        description: "Automated invoice follow-ups\nDesigned for low maintenance",
-        link: "paychasers.com",
-        url: "https://www.paychasers.com/",
-        stack: ["Next.js", "TypeScript, JavaScript", "CSS"],
-        infra: ["Vercel", "PostgreSQL"],
-        payments: ["LemonSqueezy (integration in progress)"]
-    },
-    {
-        name: "SWYFTSWAP",
-        status: "[ARCHIVED]",
-        type: "Crypto / Platform",
-        pricing: "5% flat fee",
-        goal: "Financial inclusion",
-        description: "Instant airtime-to-USDC\nNon-custodial Stellar rails",
-        link: "swyftswap.com",
-        url: "https://www.swyftswap.com",
-        stack: ["Vue", "JavaScript, TypeScript", "Rust (Soroban smart contracts)", "Stellar blockchain"],
-        infra: ["Vercel", "Stellar Network"],
-        architecture: ["Non-custodial", "Smart contract–driven settlement", "SMS-triggered transactions (infra-ready)"],
-        statusNotes: ["Archived (research ongoing)", "End-to-end system fully built and deployed"],
-        notes: ["Self-custodial USDC delivery", "Reduced regulatory surface via non-custodial model"]
-    }
-];
+import { PRODUCTS } from '@/lib/products';
 
 export default function ProductLog() {
     return (
@@ -85,7 +22,31 @@ export default function ProductLog() {
                             </span>
                         </div>
 
-                        {/* TYPE, PRICING, GOAL, PHASE */}
+                        {/* Professional details: Role & Location (if present) */}
+                        {(product.role || product.location) && (
+                            <div className="grid gap-1 text-sm mb-4">
+                                {product.role && (
+                                    <div className="flex">
+                                        <span className="text-text-muted w-24 uppercase tracking-wider">ROLE:</span>
+                                        <span className="text-text-primary font-medium">{product.role}</span>
+                                    </div>
+                                )}
+                                {product.location && (
+                                    <div className="flex">
+                                        <span className="text-text-muted w-24 uppercase tracking-wider">LOCATION:</span>
+                                        <span className="text-text-primary">{product.location}</span>
+                                    </div>
+                                )}
+                                {product.period && (
+                                    <div className="flex">
+                                        <span className="text-text-muted w-24 uppercase tracking-wider">PERIOD:</span>
+                                        <span className="text-text-primary">{product.period}</span>
+                                    </div>
+                                )}
+                            </div>
+                        )}
+
+                        {/* Standard fields: TYPE, PRICING, GOAL, PHASE */}
                         <div className="grid gap-1 text-sm mb-4">
                             <div className="flex">
                                 <span className="text-text-muted w-24 uppercase tracking-wider">TYPE:</span>
@@ -99,6 +60,10 @@ export default function ProductLog() {
                                 <span className="text-text-muted min-w-[6rem] uppercase tracking-wider shrink-0 mt-0.5">GOAL:</span>
                                 <span className="text-accent whitespace-pre-line">{product.goal}</span>
                             </div>
+                            <div className="flex items-start">
+                                <span className="text-text-muted min-w-[6rem] uppercase tracking-wider shrink-0 mt-0.5">STACK:</span>
+                                <span className="text-text-primary">{product.stack.join(', ')}</span>
+                            </div>
                             {product.statusNotes && product.statusNotes.length > 0 && (
                                 <div className="flex">
                                     <span className="text-text-muted w-24 uppercase tracking-wider">PHASE:</span>
@@ -108,20 +73,52 @@ export default function ProductLog() {
                         </div>
 
                         {/* Description */}
-                        <pre className="font-mono text-sm text-text-muted mb-6 whitespace-pre-line font-sans">
+                        <p className="text-sm text-text-muted mb-6 leading-relaxed whitespace-pre-line">
                             {product.description}
-                        </pre>
+                        </p>
+
+                        {/* Responsibilities (Professional Work) */}
+                        {product.responsibilities && product.responsibilities.length > 0 && (
+                            <div className="mb-6">
+                                <h3 className="text-xs text-text-muted uppercase tracking-widest mb-3 opacity-70">Key Responsibilities:</h3>
+                                <ul className="space-y-2 text-sm text-text-primary/90">
+                                    {product.responsibilities.map((r, i) => (
+                                        <li key={i} className="flex items-start gap-2">
+                                            <span className="text-accent mt-1">→</span>
+                                            <span>{r}</span>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        )}
+
+                        {/* Testing Section (for Code4Kids) */}
+                        {product.testing && product.testing.length > 0 && (
+                            <div className="mb-6 p-4 bg-accent-secondary/10 border-l-2 border-accent/40">
+                                <h3 className="text-xs text-accent uppercase tracking-widest mb-3 font-semibold">Testing & Quality:</h3>
+                                <ul className="space-y-2 text-sm text-text-primary/90">
+                                    {product.testing.map((t, i) => (
+                                        <li key={i} className="flex items-start gap-2">
+                                            <span className="text-accent mt-1">✓</span>
+                                            <span>{t}</span>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        )}
 
                         {/* Link */}
-                        <div className="mt-2">
-                            <Link
-                                href={product.url}
-                                target="_blank"
-                                className="text-text-muted border-b border-accent-secondary hover:text-accent hover:border-accent transition-all text-sm inline-block pb-0.5 hover:tracking-wide"
-                            >
-                                {product.link} ↗
-                            </Link>
-                        </div>
+                        {product.url && (
+                            <div className="mt-2">
+                                <Link
+                                    href={product.url}
+                                    target="_blank"
+                                    className="text-text-muted border-b border-accent-secondary hover:text-accent hover:border-accent transition-all text-sm inline-block pb-0.5 hover:tracking-wide"
+                                >
+                                    {product.link} ↗
+                                </Link>
+                            </div>
+                        )}
                     </div>
                 ))}
             </div>

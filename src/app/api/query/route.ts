@@ -137,6 +137,16 @@ Example: show radcad focus`
                 response += `PRICING: ${product.pricing}\n`;
                 response += `GOAL: ${product.goal}\n\n`;
 
+                if (product.role) {
+                    response += `ROLE: ${product.role}\n`;
+                }
+                if (product.period) {
+                    response += `PERIOD: ${product.period}\n`;
+                }
+                if (product.location) {
+                    response += `LOCATION: ${product.location}\n\n`;
+                }
+
                 if (product.stack?.length) {
                     response += `STACK:\n${product.stack.map(s => `- ${s}`).join('\n')}\n\n`;
                 }
@@ -145,6 +155,12 @@ Example: show radcad focus`
                 }
                 if (product.architecture?.length) {
                     response += `ARCHITECTURE:\n${product.architecture.map(s => `- ${s}`).join('\n')}\n\n`;
+                }
+                if (product.responsibilities?.length) {
+                    response += `RESPONSIBILITIES:\n${product.responsibilities.map(r => `- ${r}`).join('\n')}\n\n`;
+                }
+                if (product.testing?.length) {
+                    response += `TESTING:\n${product.testing.map(t => `- ${t}`).join('\n')}\n\n`;
                 }
                 if (product.notes?.length) {
                     response += `NOTES:\n${product.notes.map(s => `- ${s}`).join('\n')}\n\n`;
@@ -184,6 +200,9 @@ Example: show radcad focus`
                     'architecture': 'architecture',
                     'notes': 'notes',
                     'status': 'status',
+                    'responsibilities': 'responsibilities',
+                    'testing': 'testing',
+                    'role': 'role'
                 };
 
                 const fieldKey = fieldMap[field];
