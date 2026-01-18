@@ -5,13 +5,16 @@ interface ActivityStats {
         commits: number;
         repos: number;
         streak?: number;
+        history?: Record<string, number>; // YYYY-MM-DD -> count
     };
     gitlab: {
         commits: number;
         activeMonths?: number;
+        history?: Record<string, number>; // YYYY-MM-DD -> count
     };
     totalSessions: number;
     shipped: number;
+    history?: Record<string, number>; // YYYY-MM-DD -> count (combined, for backward compatibility)
 }
 
 // Fallback data if no keys are present
@@ -27,6 +30,7 @@ const FALLBACK_STATS: ActivityStats = {
     },
     totalSessions: 1600,
     shipped: 4,
+    history: {}
 };
 
 async function fetchGitHubStats(token: string) {
@@ -72,12 +76,16 @@ async function fetchGitHubStats(token: string) {
         // Flatten days
         const days = calendar.weeks.flatMap((w: any) => w.contributionDays);
 
+        // Daily history map
+        const history: Record<string, number> = {};
+
         // Calculate Longest Streak (Iterate chronologically)
         let maxStreak = 0;
         let currentStreak = 0;
 
         for (const day of days) {
             if (day.contributionCount > 0) {
+                history[day.date] = (history[day.date] || 0) + day.contributionCount;
                 currentStreak++;
             } else {
                 if (currentStreak > maxStreak) maxStreak = currentStreak;
@@ -90,7 +98,8 @@ async function fetchGitHubStats(token: string) {
         return {
             repos: 0,
             commits: calendar.totalContributions,
-            streak: maxStreak
+            streak: maxStreak,
+            history
         };
     } catch (e) {
         console.error("GitHub fetch failed", e);
@@ -110,6 +119,9 @@ async function fetchGitLabStats(token: string) {
 
         // 2. Paginate through ALL events to get dates for streak calculation
         const allDates: Set<string> = new Set();
+        // Also track counts for history
+        const dateCounts: Record<string, number> = {};
+
         let page = 1;
         const perPage = 100;
         let hasMore = true;
@@ -132,6 +144,7 @@ async function fetchGitLabStats(token: string) {
                     if (event.created_at) {
                         const date = event.created_at.split('T')[0];
                         allDates.add(date);
+                        dateCounts[date] = (dateCounts[date] || 0) + 1;
                     }
                 }
                 page++;
@@ -174,7 +187,8 @@ async function fetchGitLabStats(token: string) {
         return {
             commits: allDates.size, // Total unique active days = sessions
             streak: maxStreak,
-            activeMonths: 12
+            activeMonths: 12,
+            history: dateCounts
         };
     } catch (e) {
         console.error("GitLab fetch failed", e);
@@ -197,12 +211,24 @@ export async function getActivityStats(): Promise<ActivityStats> {
     let glStreak = 0;
     let glSessions = 0;
 
+    // Combined history (for backward compatibility)
+    const history: Record<string, number> = {};
+    // Separate histories
+    const githubHistory: Record<string, number> = {};
+    const gitlabHistory: Record<string, number> = {};
+
     // GitHub
     if (githubToken) {
         const ghStats = await fetchGitHubStats(githubToken);
         if (ghStats) {
             ghStreak = ghStats.streak;
             ghSessions = ghStats.commits;
+            if (ghStats.history) {
+                Object.entries(ghStats.history).forEach(([date, count]) => {
+                    githubHistory[date] = count;
+                    history[date] = (history[date] || 0) + count;
+                });
+            }
             console.log('[Activity] GitHub stats:', { ghSessions, ghStreak });
         }
     }
@@ -214,6 +240,12 @@ export async function getActivityStats(): Promise<ActivityStats> {
             glStreak = glStats.streak || 0;
             glSessions = glStats.commits;
             stats.gitlab.commits = glSessions;
+            if (glStats.history) {
+                Object.entries(glStats.history).forEach(([date, count]) => {
+                    gitlabHistory[date] = count;
+                    history[date] = (history[date] || 0) + count;
+                });
+            }
             console.log('[Activity] GitLab stats:', { glSessions, glStreak });
         }
     }
@@ -226,6 +258,17 @@ export async function getActivityStats(): Promise<ActivityStats> {
         stats.totalSessions = totalFromAPIs;
     } else {
         console.log('[Activity] Using fallback sessions:', FALLBACK_STATS.totalSessions);
+    }
+
+    // Assign histories if we have any data
+    if (Object.keys(history).length > 0) {
+        stats.history = history; // Combined for backward compatibility
+    }
+    if (Object.keys(githubHistory).length > 0) {
+        stats.github.history = githubHistory;
+    }
+    if (Object.keys(gitlabHistory).length > 0) {
+        stats.gitlab.history = gitlabHistory;
     }
 
     // Use the MAX streak between GitHub and GitLab (real data from both)

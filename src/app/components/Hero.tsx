@@ -1,5 +1,5 @@
-import clsx from 'clsx';
 import { getActivityStats } from '@/lib/activity';
+import ContributionHeatmap from './ContributionHeatmap';
 
 export default async function Hero() {
     const stats = await getActivityStats();
@@ -54,26 +54,11 @@ export default async function Hero() {
                 </div>
 
                 {/* Visual Heatmap Integration */}
-                <div className="flex flex-wrap gap-1 max-w-[600px] mb-2">
-                    {/* Generating a static visual pattern representing the 'calm' consistent activity */}
-                    {Array.from({ length: 60 }).map((_, i) => {
-                        // Pseudo-random pattern for visualization based on index
-                        const level = [1, 2, 4, 1, 0, 3, 2, 1, 4, 2, 1, 0][i % 12];
-                        return (
-                            <div
-                                key={i}
-                                className={clsx(
-                                    "w-3 h-3 transition-colors duration-300",
-                                    level === 0 && "bg-accent-secondary/10",
-                                    level === 1 && "bg-accent/20",
-                                    level === 2 && "bg-accent/40",
-                                    level === 3 && "bg-accent/70",
-                                    level === 4 && "bg-accent/100"
-                                )}
-                            />
-                        );
-                    })}
-                </div>
+                <ContributionHeatmap 
+                    history={stats.history} 
+                    githubHistory={stats.github.history}
+                    gitlabHistory={stats.gitlab.history}
+                />
                 <div className="flex items-center justify-between text-xs text-text-muted mt-2">
                     <div className="flex items-center gap-2">
                         <span>less</span>
