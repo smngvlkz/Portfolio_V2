@@ -109,7 +109,7 @@ async function fetchGitHubStats(token: string) {
 
 async function fetchGitLabStats(token: string) {
     try {
-        // 1. Get User ID
+        // 1. Get User ID (requires read_user scope)
         const userRes = await fetch('https://gitlab.com/api/v4/user', {
             headers: { Authorization: `Bearer ${token}` },
             next: { revalidate: 604800 }
@@ -118,6 +118,7 @@ async function fetchGitLabStats(token: string) {
         const user = await userRes.json();
 
         // 2. Paginate through ALL events to get dates for streak calculation
+        // Events endpoint is public for public profiles — no auth needed
         const allDates: Set<string> = new Set();
         // Also track counts for history
         const dateCounts: Record<string, number> = {};
@@ -129,7 +130,7 @@ async function fetchGitLabStats(token: string) {
         while (hasMore) {
             const eventsRes = await fetch(
                 `https://gitlab.com/api/v4/users/${user.id}/events?per_page=${perPage}&page=${page}`,
-                { headers: { Authorization: `Bearer ${token}` } }
+                { next: { revalidate: 604800 } }
             );
 
             if (!eventsRes.ok) break;
