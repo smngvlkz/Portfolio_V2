@@ -26,20 +26,20 @@ export default function ProductLog() {
                         {(product.role || product.location) && (
                             <div className="grid gap-1 text-sm mb-4">
                                 {product.role && (
-                                    <div className="flex">
-                                        <span className="text-text-muted w-24 uppercase tracking-wider">ROLE:</span>
+                                    <div className="flex items-start">
+                                        <span className="text-text-muted min-w-24 shrink-0 uppercase tracking-wider">ROLE:</span>
                                         <span className="text-text-primary font-medium">{product.role}</span>
                                     </div>
                                 )}
                                 {product.location && (
-                                    <div className="flex">
-                                        <span className="text-text-muted w-24 uppercase tracking-wider">LOCATION:</span>
+                                    <div className="flex items-start">
+                                        <span className="text-text-muted min-w-24 shrink-0 uppercase tracking-wider">LOCATION:</span>
                                         <span className="text-text-primary">{product.location}</span>
                                     </div>
                                 )}
                                 {product.period && (
-                                    <div className="flex">
-                                        <span className="text-text-muted w-24 uppercase tracking-wider">PERIOD:</span>
+                                    <div className="flex items-start">
+                                        <span className="text-text-muted min-w-24 shrink-0 uppercase tracking-wider">PERIOD:</span>
                                         <span className="text-text-primary">{product.period}</span>
                                     </div>
                                 )}
@@ -48,12 +48,12 @@ export default function ProductLog() {
 
                         {/* Standard fields: TYPE, PRICING, GOAL, PHASE */}
                         <div className="grid gap-1 text-sm mb-4">
-                            <div className="flex">
-                                <span className="text-text-muted w-24 uppercase tracking-wider">TYPE:</span>
+                            <div className="flex items-start">
+                                <span className="text-text-muted min-w-24 shrink-0 uppercase tracking-wider">TYPE:</span>
                                 <span className="text-text-primary">{product.type}</span>
                             </div>
-                            <div className="flex">
-                                <span className="text-text-muted w-24 uppercase tracking-wider">PRICING:</span>
+                            <div className="flex items-start">
+                                <span className="text-text-muted min-w-24 shrink-0 uppercase tracking-wider">PRICING:</span>
                                 <span className="text-text-primary">
                                     {(() => {
                                         const highlights = ['FOREVER', 'LIFETIME'];
@@ -70,16 +70,16 @@ export default function ProductLog() {
                                 </span>
                             </div>
                             <div className="flex items-start">
-                                <span className="text-text-muted min-w-[6rem] uppercase tracking-wider shrink-0 mt-0.5">GOAL:</span>
+                                <span className="text-text-muted min-w-24 shrink-0 uppercase tracking-wider">GOAL:</span>
                                 <span className="text-accent whitespace-pre-line">{product.goal}</span>
                             </div>
                             <div className="flex items-start">
-                                <span className="text-text-muted min-w-[6rem] uppercase tracking-wider shrink-0 mt-0.5">STACK:</span>
+                                <span className="text-text-muted min-w-24 shrink-0 uppercase tracking-wider">STACK:</span>
                                 <span className="text-text-primary">{product.stack.join(', ')}</span>
                             </div>
                             {product.statusNotes && product.statusNotes.length > 0 && (
-                                <div className="flex">
-                                    <span className="text-text-muted w-24 uppercase tracking-wider">PHASE:</span>
+                                <div className="flex items-start">
+                                    <span className="text-text-muted min-w-24 shrink-0 uppercase tracking-wider">PHASE:</span>
                                     <span className="text-text-primary">Research <span className="bg-text-muted/20 px-1.5 py-0.5 rounded-sm text-text-primary font-bold">ONGOING</span></span>
                                 </div>
                             )}
