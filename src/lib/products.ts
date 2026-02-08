@@ -69,21 +69,6 @@ export const PRODUCTS: Product[] = [
         payments: ["LemonSqueezy (integration in progress)"]
     },
     {
-        name: "QUICKSALARIES",
-        slug: "quicksalaries",
-        status: "LIVE",
-        type: "SaaS",
-        pricing: "Free / Pro $14.99 LIFETIME",
-        goal: "Authority",
-        description: "Salary data aggregation. Transparent market insights.",
-        link: "quicksalaries.com",
-        url: "https://www.quicksalaries.com/",
-        stack: ["HTML", "CSS", "JavaScript", "No framework"],
-        infra: ["Microsoft Azure", "Static delivery"],
-        payments: ["LemonSqueezy"],
-        notes: ["Intentionally minimal", "Backend-free by design"]
-    },
-    {
         name: "PATHFORGE",
         slug: "pathforge",
         status: "LIVE",
@@ -104,6 +89,21 @@ export const PRODUCTS: Product[] = [
             "Built for South African market realities"
         ],
         focus: ["Women and youth employment in South Africa", "Mentor-mentee matching", "Task delegation & tracking", "Portfolio building", "Trust & safety systems"]
+    },
+    {
+        name: "QUICKSALARIES",
+        slug: "quicksalaries",
+        status: "LIVE",
+        type: "SaaS",
+        pricing: "Free / Pro $14.99 LIFETIME",
+        goal: "Authority",
+        description: "Salary data aggregation. Transparent market insights.",
+        link: "quicksalaries.com",
+        url: "https://www.quicksalaries.com/",
+        stack: ["HTML", "CSS", "JavaScript", "No framework"],
+        infra: ["Microsoft Azure", "Static delivery"],
+        payments: ["LemonSqueezy"],
+        notes: ["Intentionally minimal", "Backend-free by design"]
     },
     {
         name: "SWYFTSWAP",
