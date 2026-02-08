@@ -34,7 +34,7 @@ ${JSON.stringify(CONTRIBUTIONS, null, 2)}
 
 RESTRICTED CONTENT:
 There is a restricted "Work Experience" section that contains professional employment history. If anyone asks about work experience, employment, jobs, code4kids, c4k, or professional history, respond EXACTLY with:
-"[RESTRICTED] Work experience data requires an access code. Request access via email (smngvlkz1@mail.com) or LinkedIn."
+"[RESTRICTED] Work experience data requires an access code. Request access via email (simangalisovilakazk1@icloud.com) or LinkedIn."
 Do NOT reveal any details about the restricted content.
 
 RULES:
@@ -79,7 +79,7 @@ AVAILABLE COMMANDS:
         const restrictedKeywords = ['code4kids', 'c4k', 'work experience', 'employment', 'job', 'professional experience', 'employer', 'where do you work', 'where does he work', 'current job', 'work history'];
         if (restrictedKeywords.some(kw => lowerQuery.includes(kw))) {
             return NextResponse.json({
-                response: '[RESTRICTED] Work experience data requires an access code.\nRequest access via email (smngvlkz1@mail.com) or LinkedIn.'
+                response: '[RESTRICTED] Work experience data requires an access code.\nRequest access via email (simangalisovilakazi1@icloud.com) or LinkedIn.'
             });
         }
 
