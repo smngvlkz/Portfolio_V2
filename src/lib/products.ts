@@ -49,7 +49,7 @@ export const PRODUCTS: Product[] = [
         description: "PathForge is a free mentorship and skills development platform helping South African women and youth gain real work experience through project-based learning, addressing the country's high unemployment challenge.",
         link: "pathforge.co.za",
         url: "https://pathforge.co.za",
-        stack: ["React", "TypeScript", "Node.js", "Express", "Prisma", "PostgreSQL", "TailwindCSS", "Huawei Cloud (ECS, OBS)"],
+        stack: ["React", "TypeScript", "Vite", "Node.js", "Express", "Prisma", "PostgreSQL", "TailwindCSS", "Huawei Cloud (ECS, OBS)"],
         infra: ["Huawei Cloud ECS", "Huawei Cloud OBS", "Vercel", "Neon Database"],
         architecture: ["RESTful APIs", "JWT Authentication", "Cloud-native file storage", "Real-time messaging (Socket.io)"],
         payments: ["Payment confirmation model (no processing)"],
