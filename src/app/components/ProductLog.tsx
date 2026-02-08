@@ -54,7 +54,13 @@ export default function ProductLog() {
                             </div>
                             <div className="flex">
                                 <span className="text-text-muted w-24 uppercase tracking-wider">PRICING:</span>
-                                <span className="text-text-primary">{product.pricing}</span>
+                                <span className="text-text-primary">
+                                    {product.pricing.includes('FOREVER') ? (
+                                        <>Free <span className="bg-text-muted/20 px-1.5 py-0.5 rounded-sm text-text-primary font-bold">FOREVER</span>{product.pricing.split('FOREVER')[1]}</>
+                                    ) : (
+                                        product.pricing
+                                    )}
+                                </span>
                             </div>
                             <div className="flex items-start">
                                 <span className="text-text-muted min-w-[6rem] uppercase tracking-wider shrink-0 mt-0.5">GOAL:</span>

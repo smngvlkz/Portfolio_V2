@@ -73,7 +73,7 @@ export const PRODUCTS: Product[] = [
         slug: "quicksalaries",
         status: "LIVE",
         type: "SaaS",
-        pricing: "Free forever / Pro $14.99 lifetime",
+        pricing: "Free FOREVER / Pro $14.99 lifetime",
         goal: "Authority",
         description: "Salary data aggregation. Transparent market insights.",
         link: "quicksalaries.com",
@@ -82,6 +82,28 @@ export const PRODUCTS: Product[] = [
         infra: ["Microsoft Azure", "Static delivery"],
         payments: ["LemonSqueezy"],
         notes: ["Intentionally minimal", "Backend-free by design"]
+    },
+    {
+        name: "PATHFORGE",
+        slug: "pathforge",
+        status: "LIVE",
+        type: "EdTech & Mentorship Platform",
+        pricing: "Free FOREVER / Premium planned for mentors & orgs",
+        goal: "Reduce Women and Youth unemployment by enabling practical, project-based skill development, mentorship, and career readiness",
+        description: "PathForge is a free mentorship and skills development platform helping South African women and youth gain real work experience through project-based learning, addressing the country's high unemployment challenge.",
+        link: "pathforge.co.za",
+        url: "https://pathforge.co.za",
+        stack: ["React", "TypeScript", "Node.js", "Express", "Prisma", "PostgreSQL", "TailwindCSS"],
+        infra: ["Huawei Cloud ECS", "Huawei Cloud OBS", "Vercel", "Neon Database"],
+        architecture: ["RESTful APIs", "JWT Authentication", "Cloud-native file storage", "Real-time messaging (Socket.io)"],
+        payments: ["Payment confirmation model (no processing)"],
+        notes: [
+            "Huawei Developer Competition 2025 Entry",
+            "Deployed on Huawei Cloud infrastructure",
+            "10,000+ job placements target (Year 1)",
+            "Built for South African market realities"
+        ],
+        focus: ["Women and youth employment in South Africa", "Mentor-mentee matching", "Task delegation & tracking", "Portfolio building", "Trust & safety systems"]
     },
     {
         name: "SWYFTSWAP",
