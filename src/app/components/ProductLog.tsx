@@ -55,11 +55,18 @@ export default function ProductLog() {
                             <div className="flex">
                                 <span className="text-text-muted w-24 uppercase tracking-wider">PRICING:</span>
                                 <span className="text-text-primary">
-                                    {product.pricing.includes('FOREVER') ? (
-                                        <>Free <span className="bg-text-muted/20 px-1.5 py-0.5 rounded-sm text-text-primary font-bold">FOREVER</span>{product.pricing.split('FOREVER')[1]}</>
-                                    ) : (
-                                        product.pricing
-                                    )}
+                                    {(() => {
+                                        const highlights = ['FOREVER', 'LIFETIME'];
+                                        const parts = product.pricing.split(new RegExp(`(${highlights.join('|')})`));
+                                        if (parts.length === 1) return product.pricing;
+                                        return parts.map((part, i) =>
+                                            highlights.includes(part) ? (
+                                                <span key={i} className="bg-text-muted/20 px-1.5 py-0.5 rounded-sm text-text-primary font-bold">{part}</span>
+                                            ) : (
+                                                <span key={i}>{part}</span>
+                                            )
+                                        );
+                                    })()}
                                 </span>
                             </div>
                             <div className="flex items-start">
