@@ -29,7 +29,7 @@ const FALLBACK_STATS: ActivityStats = {
         activeMonths: 12,
     },
     totalSessions: 1600,
-    shipped: 4,
+    shipped: 5,
     history: {}
 };
 
