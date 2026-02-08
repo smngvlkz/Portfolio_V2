@@ -80,7 +80,7 @@ export default function ProductLog() {
                             {product.statusNotes && product.statusNotes.length > 0 && (
                                 <div className="flex">
                                     <span className="text-text-muted w-24 uppercase tracking-wider">PHASE:</span>
-                                    <span className="text-text-primary">Research (active)</span>
+                                    <span className="text-text-primary">Research <span className="bg-text-muted/20 px-1.5 py-0.5 rounded-sm text-text-primary font-bold">ONGOING</span></span>
                                 </div>
                             )}
                         </div>
