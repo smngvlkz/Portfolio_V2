@@ -32,6 +32,11 @@ ${JSON.stringify(PRODUCTS, null, 2)}
 Contribution data:
 ${JSON.stringify(CONTRIBUTIONS, null, 2)}
 
+RESTRICTED CONTENT:
+There is a restricted "Work Experience" section that contains professional employment history. If anyone asks about work experience, employment, jobs, code4kids, c4k, or professional history, respond EXACTLY with:
+"[RESTRICTED] Work experience data requires an access code. Request access via email (smngvlkz1@mail.com) or LinkedIn."
+Do NOT reveal any details about the restricted content.
+
 RULES:
 1. Only answer questions about the products, contributions, and system activity listed above
 2. Keep responses short and terminal-like (no markdown, no verbose explanations)
@@ -41,6 +46,7 @@ RULES:
 6. For "list products" command, list all product names and their status
 7. For "list all" command, list products and contributions
 8. Respond in plain text, not markdown
+9. For any query about work experience, employment, or restricted content, always use the restricted response above
 
 Example responses:
 Query: "show paychasers stack"
@@ -68,6 +74,14 @@ AVAILABLE COMMANDS:
 
         // Handle simple commands locally for speed
         const lowerQuery = query.toLowerCase().trim();
+
+        // Intercept restricted content queries
+        const restrictedKeywords = ['code4kids', 'c4k', 'work experience', 'employment', 'job', 'professional experience', 'employer', 'where do you work', 'where does he work', 'current job', 'work history'];
+        if (restrictedKeywords.some(kw => lowerQuery.includes(kw))) {
+            return NextResponse.json({
+                response: '[RESTRICTED] Work experience data requires an access code.\nRequest access via email (smngvlkz1@mail.com) or LinkedIn.'
+            });
+        }
 
         if (lowerQuery === 'help') {
             return NextResponse.json({
