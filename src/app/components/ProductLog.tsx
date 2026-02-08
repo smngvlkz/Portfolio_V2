@@ -4,7 +4,7 @@ import { PRODUCTS } from '@/lib/products';
 export default function ProductLog() {
     return (
         <section className="py-8 max-w-[700px]">
-            <h2 className="text-base font-medium uppercase tracking-[0.2em] text-text-primary/90 mb-8 max-w-[700px]">LOGS/PRODUCTS</h2>
+            <h2 className="text-sm font-bold uppercase tracking-[0.2em] text-text-primary/90 mb-8 max-w-[700px]">LOGS/PRODUCTS</h2>
 
             <div className="flex flex-col gap-16">
                 {PRODUCTS.map((product) => (
@@ -14,7 +14,7 @@ export default function ProductLog() {
                     >
                         {/* Header */}
                         <div className="flex items-center gap-4 mb-6">
-                            <span className="text-lg font-bold text-text-primary group-hover:text-accent transition-colors">
+                            <span className="text-sm font-bold text-text-primary group-hover:text-accent transition-colors uppercase tracking-wide">
                                 [PRODUCT] {product.name}
                             </span>
                             <span className="text-xs bg-accent-secondary text-text-primary px-1.5 py-0.5 rounded-sm uppercase">
@@ -108,7 +108,7 @@ export default function ProductLog() {
                         {/* Testing Section (for Code4Kids) */}
                         {product.testing && product.testing.length > 0 && (
                             <div className="mb-6 p-4 bg-accent-secondary/10 border-l-2 border-accent/40">
-                                <h3 className="text-xs text-accent uppercase tracking-widest mb-3 font-semibold">Testing & Quality:</h3>
+                                <h3 className="text-xs text-accent uppercase tracking-widest mb-3 font-bold">Testing & Quality:</h3>
                                 <ul className="space-y-2 text-sm text-text-primary/90">
                                     {product.testing.map((t, i) => (
                                         <li key={i} className="flex items-start gap-2">

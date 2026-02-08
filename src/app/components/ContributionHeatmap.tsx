@@ -151,7 +151,7 @@ export default function ContributionHeatmap({ history, githubHistory, gitlabHist
                     }}
                 >
                     <div className="bg-accent-secondary/95 backdrop-blur-sm border border-accent/30 rounded px-3 py-2 shadow-lg min-w-[180px]">
-                        <div className="text-text-primary text-sm font-semibold mb-1">
+                        <div className="text-text-primary text-sm font-bold mb-1">
                             {tooltip.contributions > 0 ? (
                                 <span className="text-accent">{tooltip.contributions}</span>
                             ) : (

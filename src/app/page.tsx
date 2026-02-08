@@ -22,8 +22,8 @@ export default function Home() {
       <div className="h-px bg-accent-secondary/50 w-full max-w-[600px] my-16" />
 
       <section className="max-w-[700px] mb-16 mt-8">
-        <h2 className="text-base font-medium uppercase tracking-[0.2em] text-text-primary/90 mb-8 border-b border-accent-secondary/40 pb-2 w-max pr-12">README.md</h2>
-        <div className="space-y-1 text-text-primary">
+        <h2 className="text-sm font-bold uppercase tracking-[0.2em] text-text-primary/90 mb-8 border-b border-accent-secondary/40 pb-2 w-max pr-12">README.md</h2>
+        <div className="space-y-1 text-sm text-text-primary">
           <p>I build software designed to last.</p>
           <p>Products that solve real problems.</p>
         </div>

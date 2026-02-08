@@ -10,14 +10,14 @@ export default function Contributions() {
             {/* Acknowledgements Section */}
             {acknowledgements.length > 0 && (
                 <section>
-                    <h2 className="text-base font-medium uppercase tracking-[0.2em] text-text-primary/90 mb-6 border-b border-accent-secondary/40 pb-2 w-max pr-12">
+                    <h2 className="text-sm font-bold uppercase tracking-[0.2em] text-text-primary/90 mb-6 border-b border-accent-secondary/40 pb-2 w-max pr-12">
                         ACKNOWLEDGEMENTS
                     </h2>
                     <div className="space-y-12">
                         {acknowledgements.map((item) => (
                             <div key={item.id} className="text-text-primary text-sm space-y-3">
                                 <p className="leading-relaxed">
-                                    {item.role} to the <span className="text-lg font-medium text-accent">{item.name}</span> {item.description}.
+                                    {item.role} to the <span className="text-sm font-bold text-accent">{item.name}</span> {item.description}.
                                 </p>
                                 <div className="pl-0 opacity-80">
                                     <p className="text-text-muted mb-2 text-xs uppercase tracking-wide">Contribution:</p>
@@ -45,13 +45,13 @@ export default function Contributions() {
             {/* Community Section */}
             {communityItems.length > 0 && (
                 <section>
-                    <h2 className="text-base font-medium uppercase tracking-[0.2em] text-text-primary/90 mb-6 border-b border-accent-secondary/40 pb-2 w-max pr-12">
+                    <h2 className="text-sm font-bold uppercase tracking-[0.2em] text-text-primary/90 mb-6 border-b border-accent-secondary/40 pb-2 w-max pr-12">
                         COMMUNITY
                     </h2>
                     <div className="space-y-12">
                         {communityItems.map((item) => (
                             <div key={item.id} className="text-text-primary text-sm space-y-4">
-                                <p className="text-lg font-medium text-accent">
+                                <p className="text-sm font-bold text-accent uppercase tracking-wide">
                                     {item.name}
                                 </p>
                                 <div className="grid gap-4 mt-2">

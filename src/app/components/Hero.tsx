@@ -9,8 +9,8 @@ export default async function Hero() {
             <h1 className="text-xl font-bold mb-4 glitch">
                 <span className="text-text-primary uppercase tracking-widest">&gt; SIMANGALISO_VILAKAZI</span>
             </h1>
-            <p className="text-xl font-semibold mb-1 text-text-primary">Full-Stack Software Engineer</p>
-            <p className="text-base text-text-muted mb-8">Building calm, reliable software</p>
+            <p className="text-sm font-bold mb-1 text-text-primary uppercase tracking-wider">Full-Stack Software Engineer</p>
+            <p className="text-sm text-text-muted mb-8">Building calm, reliable software</p>
 
             <div className="flex flex-col gap-2 text-sm mb-12">
                 <div className="flex items-start">
@@ -26,14 +26,14 @@ export default async function Hero() {
                     <span className="text-text-primary">Web platforms, automation, payments</span>
                 </div>
                 <div className="flex items-center mt-2 gap-4">
-                    <a href="https://github.com/smngvlkz" target="_blank" className="text-text-muted hover:text-accent transition-colors">&gt; github</a>
-                    <a href="https://linkedin.com/in/smngvlkz" target="_blank" className="text-text-muted hover:text-accent transition-colors">&gt; linkedin</a>
-                    <a href="mailto:smngvlkz1@mail.com" className="text-text-muted hover:text-accent transition-colors">&gt; email</a>
+                    <a href="https://github.com/smngvlkz" target="_blank" className="text-text-muted border-b border-accent-secondary hover:text-accent hover:border-accent transition-all pb-0.5">&gt; github</a>
+                    <a href="https://linkedin.com/in/smngvlkz" target="_blank" className="text-text-muted border-b border-accent-secondary hover:text-accent hover:border-accent transition-all pb-0.5">&gt; linkedin</a>
+                    <a href="mailto:smngvlkz1@mail.com" className="text-text-muted border-b border-accent-secondary hover:text-accent hover:border-accent transition-all pb-0.5">&gt; email</a>
                 </div>
             </div>
 
             <div>
-                <h2 className="text-base font-medium uppercase tracking-[0.2em] text-text-primary/90 mb-8 border-b border-accent-secondary/40 pb-2 w-max pr-12">
+                <h2 className="text-sm font-bold uppercase tracking-[0.2em] text-text-primary/90 mb-8 border-b border-accent-secondary/40 pb-2 w-max pr-12">
                     SYSTEM.ACTIVITY
                 </h2>
 
