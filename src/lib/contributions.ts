@@ -30,8 +30,8 @@ export const CONTRIBUTIONS: ContributionItem[] = [
         description: "Built the Cape Software Community website from the ground up as a commissioned bounty project and continue to maintain and evolve it.",
         stack: ["Next.js", "JavaScript", "Tailwind CSS", "Markdown content pipeline (react-markdown, remark)", "date-fns"],
         focus: ["Static generation", "contributor-friendly architecture", "community contribution flow"],
-        link: "capedevs.github.io",
-        url: "https://capedevs.github.io"
+        link: "capesoftwarecommunity.co.za",
+        url: "https://capesoftwarecommunity.co.za"
     }
 ];
 
