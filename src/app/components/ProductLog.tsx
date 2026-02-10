@@ -8,6 +8,7 @@ import AccessGate from './AccessGate';
 export default function ProductLog() {
     const [protectedProducts, setProtectedProducts] = useState<Product[]>([]);
     const [showGate, setShowGate] = useState(false);
+    const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
     const renderProduct = (product: Product) => (
         <div
@@ -139,14 +140,23 @@ export default function ProductLog() {
 
             {/* Link */}
             {product.url && (
-                <div className="mt-2">
-                    <Link
-                        href={product.url}
-                        target="_blank"
-                        className="text-text-muted border-b border-accent-secondary hover:text-accent hover:border-accent transition-all text-sm inline-block pb-0.5 hover:tracking-wide"
-                    >
-                        {product.link} ↗
-                    </Link>
+                <div className="mt-2 relative">
+                    {!product.protected ? (
+                        <button
+                            onClick={() => setPreviewUrl(product.url!)}
+                            className="text-text-muted border-b border-accent-secondary hover:text-accent hover:border-accent transition-all text-sm inline-block pb-0.5 hover:tracking-wide"
+                        >
+                            {product.link} ↗
+                        </button>
+                    ) : (
+                        <Link
+                            href={product.url}
+                            target="_blank"
+                            className="text-text-muted border-b border-accent-secondary hover:text-accent hover:border-accent transition-all text-sm inline-block pb-0.5 hover:tracking-wide"
+                        >
+                            {product.link} ↗
+                        </Link>
+                    )}
                 </div>
             )}
         </div>
@@ -194,6 +204,45 @@ export default function ProductLog() {
                     }}
                     onClose={() => setShowGate(false)}
                 />
+            )}
+
+            {/* Preview Modal */}
+            {previewUrl && (
+                <div
+                    className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4"
+                    onClick={() => setPreviewUrl(null)}
+                >
+                    <div
+                        className="relative w-full max-w-5xl h-[80vh] bg-[#0a0a0d] border border-accent-secondary/30 rounded-sm overflow-hidden"
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        {/* Header */}
+                        <div className="flex items-center justify-between px-4 py-2 border-b border-accent-secondary/30 bg-[#0a0a0d]">
+                            <span className="text-xs text-text-muted font-mono truncate">{previewUrl}</span>
+                            <div className="flex items-center gap-3">
+                                <Link
+                                    href={previewUrl}
+                                    target="_blank"
+                                    className="text-xs text-text-muted hover:text-accent transition-colors"
+                                >
+                                    open in new tab ↗
+                                </Link>
+                                <button
+                                    onClick={() => setPreviewUrl(null)}
+                                    className="text-text-muted hover:text-accent transition-colors text-lg leading-none"
+                                >
+                                    ×
+                                </button>
+                            </div>
+                        </div>
+                        {/* Iframe */}
+                        <iframe
+                            src={previewUrl}
+                            className="w-full h-[calc(100%-40px)]"
+                            title="Product Preview"
+                        />
+                    </div>
+                </div>
             )}
         </section>
     );
