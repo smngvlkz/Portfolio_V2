@@ -1,7 +1,11 @@
+'use client';
+
+import { useState } from 'react';
 import Link from 'next/link';
 import { CONTRIBUTIONS } from '@/lib/contributions';
 
 export default function Contributions() {
+    const [previewUrl, setPreviewUrl] = useState<string | null>(null);
     const acknowledgements = CONTRIBUTIONS.filter(c => c.type === 'Acknowledgement');
     const communityItems = CONTRIBUTIONS.filter(c => c.type === 'Community');
 
@@ -74,18 +78,56 @@ export default function Contributions() {
                                     </div>
                                 </div>
                                 <div className="mt-4">
-                                    <Link
-                                        href={item.url}
-                                        target="_blank"
+                                    <button
+                                        onClick={() => setPreviewUrl(item.url)}
                                         className="text-text-muted border-b border-accent-secondary hover:text-accent hover:border-accent transition-all text-sm inline-block pb-0.5 hover:tracking-wide"
                                     >
                                         {item.link} ↗
-                                    </Link>
+                                    </button>
                                 </div>
                             </div>
                         ))}
                     </div>
                 </section>
+            )}
+
+            {/* Preview Modal */}
+            {previewUrl && (
+                <div
+                    className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4"
+                    onClick={() => setPreviewUrl(null)}
+                >
+                    <div
+                        className="relative w-full max-w-5xl h-[80vh] bg-[#0a0a0d] border border-accent-secondary/30 rounded-sm overflow-hidden"
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        {/* Header */}
+                        <div className="flex items-center justify-between px-4 py-2 border-b border-accent-secondary/30 bg-[#0a0a0d]">
+                            <span className="text-xs text-text-muted font-mono truncate">{previewUrl}</span>
+                            <div className="flex items-center gap-3">
+                                <Link
+                                    href={previewUrl}
+                                    target="_blank"
+                                    className="text-xs text-text-muted hover:text-accent transition-colors"
+                                >
+                                    open in new tab ↗
+                                </Link>
+                                <button
+                                    onClick={() => setPreviewUrl(null)}
+                                    className="text-text-muted hover:text-accent transition-colors text-lg leading-none"
+                                >
+                                    ×
+                                </button>
+                            </div>
+                        </div>
+                        {/* Iframe */}
+                        <iframe
+                            src={previewUrl}
+                            className="w-full h-[calc(100%-40px)]"
+                            title="Preview"
+                        />
+                    </div>
+                </div>
             )}
         </div>
     );
