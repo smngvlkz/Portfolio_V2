@@ -21,6 +21,7 @@ export interface Product {
     period?: string;
     location?: string;
     responsibilities?: string[];
+    shippedFeatures?: string[];
     testing?: string[];
 }
 

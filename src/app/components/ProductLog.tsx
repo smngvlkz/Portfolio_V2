@@ -95,7 +95,7 @@ export default function ProductLog() {
             {/* Responsibilities (Professional Work) */}
             {product.responsibilities && product.responsibilities.length > 0 && (
                 <div className="mb-6">
-                    <h3 className="text-xs text-text-muted uppercase tracking-widest mb-3 opacity-70">Key Responsibilities:</h3>
+                    <h3 className="text-xs text-text-muted uppercase tracking-widest mb-3">Key Responsibilities:</h3>
                     <ul className="space-y-2 text-sm text-text-primary/90">
                         {product.responsibilities.map((r, i) => (
                             <li key={i} className="flex items-start gap-2">
@@ -107,10 +107,25 @@ export default function ProductLog() {
                 </div>
             )}
 
+            {/* Selected Shipped Features */}
+            {product.shippedFeatures && product.shippedFeatures.length > 0 && (
+                <div className="mb-6">
+                    <h3 className="text-xs text-text-muted uppercase tracking-widest mb-3">Selected Shipped Features:</h3>
+                    <ul className="space-y-2 text-sm text-text-primary/90">
+                        {product.shippedFeatures.map((f, i) => (
+                            <li key={i} className="flex items-start gap-2">
+                                <span className="text-accent mt-1">→</span>
+                                <span>{f}</span>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            )}
+
             {/* Testing Section */}
             {product.testing && product.testing.length > 0 && (
                 <div className="mb-6 p-4 bg-accent-secondary/10 border-l-2 border-accent/40">
-                    <h3 className="text-xs text-accent uppercase tracking-widest mb-3 font-bold">Testing & Quality:</h3>
+                    <h3 className="text-xs text-accent uppercase tracking-widest mb-3 font-bold">QA & Testing:</h3>
                     <ul className="space-y-2 text-sm text-text-primary/90">
                         {product.testing.map((t, i) => (
                             <li key={i} className="flex items-start gap-2">

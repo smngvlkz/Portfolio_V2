@@ -130,7 +130,10 @@ async function fetchGitLabStats(token: string) {
         while (hasMore) {
             const eventsRes = await fetch(
                 `https://gitlab.com/api/v4/users/${user.id}/events?per_page=${perPage}&page=${page}`,
-                { next: { revalidate: 604800 } }
+                {
+                    headers: { Authorization: `Bearer ${token}` },
+                    next: { revalidate: 604800 }
+                }
             );
 
             if (!eventsRes.ok) break;
