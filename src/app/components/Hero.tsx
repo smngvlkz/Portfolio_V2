@@ -26,7 +26,6 @@ export default async function Hero() {
                     <span className="text-text-primary">Web platforms, automation, payments</span>
                 </div>
                 <div className="flex items-center mt-2 gap-4">
-                    <a href="https://github.com/smngvlkz" target="_blank" className="text-text-muted border-b border-accent-secondary hover:text-accent hover:border-accent transition-all pb-0.5">&gt; github</a>
                     <a href="https://calendly.com/simangalisovilakazi/30min" target="_blank" className="text-text-muted border-b border-accent-secondary hover:text-accent hover:border-accent transition-all pb-0.5">&gt; book a call</a>
                     <a href="mailto:simangalisovilakazk1@icloud.com" className="text-text-muted border-b border-accent-secondary hover:text-accent hover:border-accent transition-all pb-0.5">&gt; email</a>
                 </div>
