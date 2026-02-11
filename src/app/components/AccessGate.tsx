@@ -76,7 +76,7 @@ export default function AccessGate({ onGranted, onClose }: AccessGateProps) {
                 <div className="text-xs text-text-muted mb-4 space-y-1">
                     <p>RESTRICTED SECTION</p>
                     <p>This content requires an access code.</p>
-                    <p className="text-text-muted/50">Request access via email or LinkedIn.</p>
+                    <p className="text-text-muted/50">Request access via <a href="mailto:simangalisovilakazk1@icloud.com" className="text-accent hover:underline">email</a> or <a href="https://calendly.com/simangalisovilakazi/30min" target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">book a call</a>.</p>
                 </div>
 
                 <form onSubmit={handleSubmit} className="flex items-center gap-2">
