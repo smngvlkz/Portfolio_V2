@@ -43,7 +43,7 @@ export const PRODUCTS: Product[] = [
     {
         name: "PATHFORGE",
         slug: "pathforge",
-        status: "LIVE",
+        status: "BETA",
         type: "EdTech & Mentorship Platform",
         pricing: "Free FOREVER / Premium planned for mentors & orgs",
         goal: "Reduce Women and Youth unemployment by enabling practical, project-based skill development, mentorship, and career readiness",
